@@ -19,15 +19,27 @@ import java.util.Scanner;
  * @author melnikov
  */
 public class App {
+    List<Book> listBooks = new ArrayList<>();
+    SaverToFile saverToFile = new SaverToFile();
+    
+    
+    public App(){
+        listBooks.addAll(saverToFile.loadListBooks());
+    
+    }
+    
+    
+    
     public void run(){
 
         Scanner scanner = new Scanner(System.in);
         String operation = "0";
         boolean badOperation;
-        List<Book> listBooks = new ArrayList<>();
+        
         List<Reader> listReaders = new ArrayList<>();
         List<History> listHistories = new ArrayList<>();
         HistoryProvider historyProvider = null;
+        
         do{
             do{
                 System.out.println("Выберите операцию:");
@@ -52,6 +64,7 @@ public class App {
                             System.out.println("Книгу создать не удалось.");
                         }else{
                             listBooks.add(book);
+                            saverToFile.saveBooks(listBooks);
                             System.out.println("Добавлена новая книга.");
                         }
                         break;

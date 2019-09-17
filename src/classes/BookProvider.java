@@ -19,7 +19,7 @@ public class BookProvider {
         System.out.println("------- Создание новой книги -------");
         System.out.println("Название книги: ");
         book.setTitle(scanner.nextLine());
-        System.out.println("Авток книги: ");
+        System.out.println("Автор книги: ");
         book.setAuthor(scanner.nextLine());
         System.out.println("Год издания книги: ");
         book.setYear(new Integer(scanner.nextLine()));
