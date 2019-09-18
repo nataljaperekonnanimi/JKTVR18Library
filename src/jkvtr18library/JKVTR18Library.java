@@ -17,7 +17,7 @@ public class JKVTR18Library {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        App app = new App();
+        App app = new App();  // zdes s4ityvajutsja books i readers.
         app.run();
     }
     

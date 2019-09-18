@@ -17,14 +17,21 @@ import java.util.Scanner;
 /**
  *
  * @author melnikov
+ * s4ityvajetsja s diska info
  */
 public class App {
     List<Book> listBooks = new ArrayList<>();
+    List<Reader> listReaders = new ArrayList<>();
+    
     SaverToFile saverToFile = new SaverToFile();
+    List<History> listHistories = new ArrayList<>();
+
     
     
     public App(){
         listBooks.addAll(saverToFile.loadListBooks());
+        listReaders.addAll(saverToFile.loadListReaders());
+        listHistories.addAll(saverToFile.loadListHistories());
     
     }
     
@@ -36,8 +43,8 @@ public class App {
         String operation = "0";
         boolean badOperation;
         
-        List<Reader> listReaders = new ArrayList<>();
-        List<History> listHistories = new ArrayList<>();
+        //List<Reader> listReaders = new ArrayList<>();  -- perenesti vverh
+       // List<History> listHistories = new ArrayList<>();
         HistoryProvider historyProvider = null;
         
         do{
@@ -75,6 +82,7 @@ public class App {
                             System.out.println("Читателя добавить не удалось.");
                         }else{
                             listReaders.add(reader);
+                            saverToFile.saveReaders(listReaders);
                             System.out.println("Добавлен новый читатель.");
                         }
                         break;
@@ -85,11 +93,13 @@ public class App {
                             System.out.println("Не удалось выдать книгу.");
                         }else{
                             listHistories.add(history);
+                            saverToFile.saveHistories(listHistories);
                             System.out.println("Книга выдана читателю.");
                         }
                         break; 
                     case "4":
                         historyProvider.returnBook(listHistories);
+                        saverToFile.saveHistories(listHistories);
                         System.out.println("Книга возвращена в библиотеку");
                         break;
                     case "5":
