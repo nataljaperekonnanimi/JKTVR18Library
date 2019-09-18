@@ -28,6 +28,7 @@ public class SaverToFile {
     private ObjectOutputStream oos = null; //objortka nad baitami i zapisyvajet projekty
     FileInputStream fileInputStream = null;
     ObjectInputStream objectInputStream = null;
+    
     public void saveBooks(List<Book> listBooks){
         try {
             fos = new FileOutputStream("Books.txt");
@@ -66,45 +67,60 @@ public class SaverToFile {
         }finally {
             try {
                 oos.close();
-                fos.close();
-                
+                fos.close();              
             } catch (IOException ex) {
                 System.out.println("Ресурсы освободить не удалось: "+ex);
                 //Logger.getLogger(SaverToFile.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        
+        }       
     }
     
-    
-    
     public void saveHistories(List<History> listHistories){
-        
-        
+        try {
+            fos = new FileOutputStream("History.txt");
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(listHistories);
+            oos.flush();
+        } catch (FileNotFoundException ex) {
+            System.out.println("Файл не найден. Ошибка: " + ex);
+        } catch (IOException ex) {
+            System.out.println("Ошибка ввода/вывода. Ошибка: " + ex);
+        }finally {
+            try {
+                oos.close();
+                fos.close();
+            } catch (IOException ex) {
+                System.out.println("Ресурсы освободить не удалось: "+ex);
+            }
+        } 
     }
     
     public List<Book> loadListBooks() {
         List<Book> listBooks = new ArrayList<>();
-        try {           
+        try {
             fileInputStream = new FileInputStream("Books.txt");
             objectInputStream = new ObjectInputStream(fileInputStream);
-            listBooks = (List<Book>)objectInputStream.readObject();
+            listBooks =(List<Book>) objectInputStream.readObject();
         } catch (FileNotFoundException ex) {
             System.out.println("Файл не найден. Ошибка: "+ ex);
-        } catch(IOException ex){
+        } catch (IOException ex) {
             System.out.println("Файл не прочитан. Ошибка: "+ ex);
-        } catch(ClassNotFoundException ex){
-            System.out.println("Не найден класс: "+ex);
-        } finally{
-            try{
-                if(fileInputStream !=null){
-                    fileInputStream.close();
-                }
-            } catch(IOException ex){
-                System.out.println("Ресурсы освободить не удалось: "+ ex);
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Не найден класс: "+ ex);
+        } finally {
+            try {
+               if(fileInputStream != null){
+                  fileInputStream.close();
+               }
+               if(objectInputStream !=null){
+                  objectInputStream.close();
+               }
+            } catch (IOException ex) {
+               System.out.println("Ресурсы освободить не удалось: "+ex);
             }
-        } 
+        }
         return listBooks;
+  
     }
     //dlja s4ityvanija zapisannoj informacii
     public List<Reader> loadListReaders(){
@@ -137,7 +153,7 @@ public class SaverToFile {
     public List<History> loadListHistories(){
         List<History> listHistories = new ArrayList<>();
         try {           
-            fileInputStream = new FileInputStream("Histories.txt");
+            fileInputStream = new FileInputStream("History.txt");
             objectInputStream = new ObjectInputStream(fileInputStream); //sozdajom objectInputStream i svjazyvejem s fileInputStream. S4itavaet i sozdajot s4itannyj objekt.  
             listHistories = (List<History>)objectInputStream.readObject(); // s4ityvajem. Preobrazovyvaet i pomeshajet v objekt listHistories
         } catch (FileNotFoundException ex) {
@@ -152,12 +168,13 @@ public class SaverToFile {
                 if(fileInputStream !=null){
                     fileInputStream.close();
                 }
+                if(objectInputStream !=null){
+                  objectInputStream.close();
+               }
             } catch(IOException ex){
                 System.out.println("Ресурсы освободить не удалось: "+ ex);
             }
         } 
-        
-        
         return listHistories;
     }
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package classes;
 
 import entity.Book;
@@ -15,28 +10,22 @@ import java.util.Scanner;
 
 
 /**
- *
- * @author melnikov
+ * @author 
  * s4ityvajetsja s diska info
  */
 public class App {
     List<Book> listBooks = new ArrayList<>();
     List<Reader> listReaders = new ArrayList<>();
-    
     SaverToFile saverToFile = new SaverToFile();
     List<History> listHistories = new ArrayList<>();
 
-    
-    
     public App(){
         listBooks.addAll(saverToFile.loadListBooks());
         listReaders.addAll(saverToFile.loadListReaders());
         listHistories.addAll(saverToFile.loadListHistories());
     
     }
-    
-    
-    
+
     public void run(){
 
         Scanner scanner = new Scanner(System.in);
@@ -45,7 +34,7 @@ public class App {
         
         //List<Reader> listReaders = new ArrayList<>();  -- perenesti vverh
        // List<History> listHistories = new ArrayList<>();
-        HistoryProvider historyProvider = null;
+        HistoryProvider historyProvider = new HistoryProvider();
         
         do{
             do{
@@ -87,7 +76,7 @@ public class App {
                         }
                         break;
                     case "3":
-                        historyProvider = new HistoryProvider();
+                        //historyProvider = new HistoryProvider(); ---perenesli vverh
                         History history = historyProvider.createHistory(listBooks, listReaders);
                         if(history == null){
                             System.out.println("Не удалось выдать книгу.");
