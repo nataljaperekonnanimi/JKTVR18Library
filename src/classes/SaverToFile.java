@@ -8,6 +8,7 @@ package classes;
 import entity.Book;
 import entity.History;
 import entity.Reader;
+import interfaces.Saver;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,19 +17,18 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Melnikov
  */
-public class SaverToFile {
+public class SaverToFile implements Saver{
     private FileOutputStream fos = null;
     private ObjectOutputStream oos = null;
     FileInputStream fileInputStream = null;
     ObjectInputStream objectInputStream = null;
     
+    @Override
     public void saveBooks(List<Book> listBooks){
         try {
             fos = new FileOutputStream("Books.txt");
@@ -48,6 +48,7 @@ public class SaverToFile {
             }
         }
     }
+    @Override
     public void saveReaders(List<Reader> listReaders){
         try {
             fos = new FileOutputStream("Readers.txt");
@@ -67,6 +68,7 @@ public class SaverToFile {
             }
         }
     }
+    @Override
     public void saveHistories(List<History> listHistories){
         try {
             fos = new FileOutputStream("History.txt");
@@ -87,6 +89,7 @@ public class SaverToFile {
         }
     }
     
+    @Override
     public List<Book> loadListBooks(){
         List<Book> listBooks = new ArrayList<>();
         try {
@@ -113,6 +116,7 @@ public class SaverToFile {
         }
         return listBooks;
     }
+    @Override
     public List<Reader> loadListReaders(){
         List<Reader> listReaders = new ArrayList<>();
         try {
@@ -139,6 +143,7 @@ public class SaverToFile {
         }
         return listReaders;
     }
+    @Override
     public List<History> loadListHistories(){
         List<History> listHistories = new ArrayList<>();
         try {

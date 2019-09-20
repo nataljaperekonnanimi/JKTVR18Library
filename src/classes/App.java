@@ -8,8 +8,8 @@ package classes;
 import entity.Book;
 import entity.History;
 import entity.Reader;
+import interfaces.Saver;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,13 +21,14 @@ import java.util.Scanner;
 public class App {
     List<Book> listBooks = new ArrayList<>();
     List<Reader> listReaders = new ArrayList<>();
-    SaverToFile saverToFile = new SaverToFile();
+    //Saver saver = new SaverToFile();
+    Saver saver = new SaverToBase();
     List<History> listHistories = new ArrayList<>();
     
     public App() {
-        listBooks.addAll(saverToFile.loadListBooks());
-        listReaders.addAll(saverToFile.loadListReaders());
-        listHistories.addAll(saverToFile.loadListHistories());
+        listBooks.addAll(saver.loadListBooks());
+//        listReaders.addAll(saver.loadListReaders());
+//        listHistories.addAll(saver.loadListHistories());
     }
     
     public void run(){
@@ -64,7 +65,7 @@ public class App {
                             System.out.println("Книгу создать не удалось.");
                         }else{
                             listBooks.add(book);
-                            saverToFile.saveBooks(listBooks);
+                            saver.saveBooks(listBooks);
                             System.out.println("Добавлена новая книга.");
                         }
                         break;
@@ -75,7 +76,7 @@ public class App {
                             System.out.println("Читателя добавить не удалось.");
                         }else{
                             listReaders.add(reader);
-                            saverToFile.saveReaders(listReaders);
+                            saver.saveReaders(listReaders);
                             System.out.println("Добавлен новый читатель.");
                         }
                         break;
@@ -86,13 +87,13 @@ public class App {
                             System.out.println("Не удалось выдать книгу.");
                         }else{
                             listHistories.add(history);
-                            saverToFile.saveHistories(listHistories);
+                            saver.saveHistories(listHistories);
                             System.out.println("Книга выдана читателю.");
                         }
                         break; 
                     case "4":
                         historyProvider.returnBook(listHistories);
-                        saverToFile.saveHistories(listHistories);
+                        saver.saveHistories(listHistories);
                         
                         break;
                     case "5":
