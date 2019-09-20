@@ -93,7 +93,7 @@ public class App {
                     case "4":
                         historyProvider.returnBook(listHistories);
                         saverToFile.saveHistories(listHistories);
-                        System.out.println("Книга возвращена в библиотеку");
+                        
                         break;
                     case "5":
                         System.out.println("---- Список книг ----");

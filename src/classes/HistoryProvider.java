@@ -52,17 +52,29 @@ public class HistoryProvider {
     public void returnBook(List<History> histories){
         System.out.println("------- Вернуть книгу -------");
         System.out.println("Список выданных книг в библиотеке:");
+        boolean flag = false;
         for(int i=0;i<histories.size();i++){
-            System.out.printf("%d. Название книги: %s. Читатель: %s %s%n"
-                    ,i+1
-                    ,histories.get(i).getBook().getTitle()
-                    ,histories.get(i).getReader().getName()
-                    ,histories.get(i).getReader().getLastname()
-            );
+            if(histories.get(i).getReturnDate() == null){
+                System.out.printf("%d. Название книги: %s. Читатель: %s %s%n"
+                        ,i+1
+                        ,histories.get(i).getBook().getTitle()
+                        ,histories.get(i).getReader().getName()
+                        ,histories.get(i).getReader().getLastname()
+                );
+                flag = true;
+            }
+            
         }
-        System.out.print("Выберите номер истории: ");
-        int numHistory = scanner.nextInt();
-        histories.get(numHistory - 1).setReturnDate(new Date());
+        
+        if(flag){
+            System.out.print("Выберите номер истории: ");
+            int numHistory = scanner.nextInt();
+            histories.get(numHistory - 1).setReturnDate(new Date());
+            System.out.println("Книга возвращена в библиотеку");
+        }else{
+            System.out.println("Выданных книг нет.");
+        }
+        
         
     }
 }
